@@ -2,7 +2,7 @@
 
 Next.js (App Router) + TypeScript + ESLint + Tailwind CSS, with Better Auth, Neon Postgres, Drizzle ORM and Zustand.
 
-The homepage is a server component that queries the `products` table with Drizzle and renders the list; adding to cart uses a persisted Zustand store.
+The homepage is a server component that queries the `products` table with Drizzle and renders the list; adding to cart uses a persisted Zustand store. `/sign-up` and `/sign-in` provide email + password auth through Better Auth.
 
 ## Setup
 
@@ -38,3 +38,4 @@ npm run dev
 - `src/app/api/auth/[...all]/route.ts` — Better Auth route handler
 - `src/store/cart.ts` — Zustand cart store (persisted to localStorage)
 - `src/app/page.tsx` — homepage product list
+- `src/app/sign-in/page.tsx`, `src/app/sign-up/page.tsx`, `src/components/auth-form.tsx` — auth pages
