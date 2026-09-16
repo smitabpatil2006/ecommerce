@@ -32,7 +32,7 @@ const nikeProducts: NewProduct[] = [
     description:
       "Created for the hardwood but taken to the streets, the Dunk Low returns with crisp overlays and original team colors.",
     category: "Lifestyle",
-    color: "Panda",
+    color: "Black/Starfish",
     priceCents: 11500,
     rating: "4.6",
     imageUrl:
