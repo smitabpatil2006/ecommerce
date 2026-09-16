@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 
+import { AuthCard } from "@/components/auth-card";
 import { AuthForm } from "@/components/auth-form";
 import { auth } from "@/lib/auth";
 
@@ -11,9 +12,11 @@ export default async function SignInPage() {
   }
 
   return (
-    <main className="mx-auto flex max-w-sm flex-col gap-6 px-6 py-16">
-      <h1 className="text-2xl font-bold tracking-tight">Sign in</h1>
+    <AuthCard
+      title="Welcome back"
+      subtitle="Sign in to shop faster and track your orders."
+    >
       <AuthForm mode="sign-in" />
-    </main>
+    </AuthCard>
   );
 }

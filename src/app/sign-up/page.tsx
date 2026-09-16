@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 
+import { AuthCard } from "@/components/auth-card";
 import { AuthForm } from "@/components/auth-form";
 import { auth } from "@/lib/auth";
 
@@ -11,9 +12,11 @@ export default async function SignUpPage() {
   }
 
   return (
-    <main className="mx-auto flex max-w-sm flex-col gap-6 px-6 py-16">
-      <h1 className="text-2xl font-bold tracking-tight">Create your account</h1>
+    <AuthCard
+      title="Become a member"
+      subtitle="Create an account for members-only products and pricing."
+    >
       <AuthForm mode="sign-up" />
-    </main>
+    </AuthCard>
   );
 }

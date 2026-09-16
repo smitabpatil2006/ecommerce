@@ -19,9 +19,9 @@ export function SignOutButton() {
         setPending(false);
         router.refresh();
       }}
-      className="rounded-full border border-black/15 px-4 py-1.5 text-sm font-medium disabled:opacity-50 dark:border-white/20"
+      className="rounded-full border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-800 transition-colors hover:border-neutral-900 hover:bg-neutral-900 hover:text-white disabled:opacity-50 dark:border-neutral-700 dark:text-neutral-200 dark:hover:border-white dark:hover:bg-white dark:hover:text-neutral-900"
     >
-      Sign out
+      {pending ? "Signing out…" : "Sign out"}
     </button>
   );
 }

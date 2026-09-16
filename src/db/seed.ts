@@ -8,10 +8,11 @@ const nikeProducts: NewProduct[] = [
     description:
       "The radiance lives on in the Nike Air Force 1 '07, the b-ball original that puts a fresh spin on what you know best.",
     category: "Lifestyle",
-    color: "White/White",
+    color: "Pastel Multi",
     priceCents: 11000,
     rating: "4.8",
-    imageUrl: "https://placehold.co/600x600/f5f5f5/111827?text=Air+Force+1",
+    imageUrl:
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=1000&q=80&auto=format&fit=crop",
   },
   {
     name: "Nike Air Max 90",
@@ -22,7 +23,8 @@ const nikeProducts: NewProduct[] = [
     color: "Infrared",
     priceCents: 13000,
     rating: "4.7",
-    imageUrl: "https://placehold.co/600x600/f5f5f5/111827?text=Air+Max+90",
+    imageUrl:
+      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=1000&q=80&auto=format&fit=crop",
   },
   {
     name: "Nike Dunk Low Retro",
@@ -33,7 +35,8 @@ const nikeProducts: NewProduct[] = [
     color: "Panda",
     priceCents: 11500,
     rating: "4.6",
-    imageUrl: "https://placehold.co/600x600/f5f5f5/111827?text=Dunk+Low",
+    imageUrl:
+      "https://images.unsplash.com/photo-1556906781-9a412961c28c?w=1000&q=80&auto=format&fit=crop",
   },
   {
     name: "Nike Pegasus 41",
@@ -41,10 +44,11 @@ const nikeProducts: NewProduct[] = [
     description:
       "A springy ride for every run, the Pegasus 41 pairs ReactX foam with dual Air Zoom units for responsive cushioning.",
     category: "Running",
-    color: "Black/Volt",
+    color: "Crimson/White",
     priceCents: 14000,
     rating: "4.5",
-    imageUrl: "https://placehold.co/600x600/f5f5f5/111827?text=Pegasus+41",
+    imageUrl:
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1000&q=80&auto=format&fit=crop",
   },
   {
     name: "Nike Metcon 9",
@@ -52,10 +56,11 @@ const nikeProducts: NewProduct[] = [
     description:
       "Built for heavy lifts and high-intensity intervals with a wide, stable heel and a grippy rubber outsole.",
     category: "Training",
-    color: "Anthracite",
+    color: "Volt",
     priceCents: 15000,
     rating: "4.4",
-    imageUrl: "https://placehold.co/600x600/f5f5f5/111827?text=Metcon+9",
+    imageUrl:
+      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1000&q=80&auto=format&fit=crop",
   },
   {
     name: "Nike Tech Fleece Hoodie",
@@ -63,10 +68,11 @@ const nikeProducts: NewProduct[] = [
     description:
       "Lightweight Tech Fleece fabric delivers warmth without the bulk, finished with a smooth zip and roomy pockets.",
     category: "Apparel",
-    color: "Heather Grey",
+    color: "Clay",
     priceCents: 13500,
     rating: "4.7",
-    imageUrl: "https://placehold.co/600x600/f5f5f5/111827?text=Tech+Fleece",
+    imageUrl:
+      "https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?w=1000&q=80&auto=format&fit=crop",
   },
   {
     name: "Nike Sportswear Club Tee",
@@ -74,10 +80,11 @@ const nikeProducts: NewProduct[] = [
     description:
       "Soft cotton jersey and a classic fit make this everyday tee an easy layer with a vintage Swoosh graphic.",
     category: "Apparel",
-    color: "Navy",
+    color: "White",
     priceCents: 3000,
     rating: "4.3",
-    imageUrl: "https://placehold.co/600x600/f5f5f5/111827?text=Club+Tee",
+    imageUrl:
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1000&q=80&auto=format&fit=crop",
   },
   {
     name: "Nike Elite Basketball Backpack",
@@ -89,7 +96,8 @@ const nikeProducts: NewProduct[] = [
     priceCents: 10000,
     rating: "4.2",
     inStock: false,
-    imageUrl: "https://placehold.co/600x600/f5f5f5/111827?text=Elite+Backpack",
+    imageUrl:
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=1000&q=80&auto=format&fit=crop",
   },
 ];
 
