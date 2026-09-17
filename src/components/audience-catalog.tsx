@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { and, asc, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 import { ProductGrid } from "@/components/product-grid";
-import { db } from "@/db";
+import { listProducts } from "@/lib/catalog";
 import { products, type Audience } from "@/db/schema";
 
 export const AUDIENCE_META: Record<
@@ -39,27 +39,14 @@ export async function AudienceCatalog({
 }) {
   const meta = AUDIENCE_META[audience];
 
-  const all = await db
-    .select()
-    .from(products)
-    .where(eq(products.audience, audience))
-    .orderBy(asc(products.name));
+  const all = await listProducts(eq(products.audience, audience));
 
   const categories = [...new Set(all.map((product) => product.category))];
   const activeCategory =
     category && categories.includes(category) ? category : undefined;
 
   const visible = activeCategory
-    ? await db
-        .select()
-        .from(products)
-        .where(
-          and(
-            eq(products.audience, audience),
-            eq(products.category, activeCategory),
-          ),
-        )
-        .orderBy(asc(products.name))
+    ? all.filter((product) => product.category === activeCategory)
     : all;
 
   return (

@@ -72,6 +72,11 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
+  function selectPayment(method: "upi" | "cod") {
+    setPaymentMethod(method);
+    setError(null);
+  }
+
   const shipping = shippingCents(subtotal);
   const total = subtotal + shipping;
 
@@ -186,7 +191,7 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
           <div className="mt-5 space-y-3">
             <PaymentOption
               active={paymentMethod === "upi"}
-              onSelect={() => setPaymentMethod("upi")}
+              onSelect={() => selectPayment("upi")}
               title="UPI"
               description="Pay instantly with any UPI app"
               icon={
@@ -208,7 +213,7 @@ export function CheckoutForm({ defaultName }: { defaultName: string }) {
             )}
             <PaymentOption
               active={paymentMethod === "cod"}
-              onSelect={() => setPaymentMethod("cod")}
+              onSelect={() => selectPayment("cod")}
               title="Cash on Delivery"
               description="Pay the courier when your order arrives"
               icon={

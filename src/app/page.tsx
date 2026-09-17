@@ -1,20 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { asc, desc } from "drizzle-orm";
-
 import { AUDIENCE_META } from "@/components/audience-catalog";
 import { ProductGrid } from "@/components/product-grid";
-import { db } from "@/db";
-import { AUDIENCES, products } from "@/db/schema";
+import { listProducts } from "@/lib/catalog";
+import { AUDIENCES } from "@/db/schema";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const featured = await db
-    .select()
-    .from(products)
-    .orderBy(desc(products.rating), asc(products.name))
-    .limit(8);
+  const featured = (await listProducts())
+    .sort((a, b) => Number(b.rating) - Number(a.rating))
+    .slice(0, 8);
 
   return (
     <main className="flex-1">
