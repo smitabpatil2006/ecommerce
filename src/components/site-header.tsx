@@ -6,7 +6,12 @@ import { SignOutButton } from "@/components/sign-out-button";
 import { Swoosh } from "@/components/swoosh";
 import { auth } from "@/lib/auth";
 
-const navLinks = ["New & Featured", "Men", "Women", "Kids", "Sale"];
+const navLinks = [
+  { label: "New & Featured", href: "/" },
+  { label: "Men", href: "/men" },
+  { label: "Women", href: "/women" },
+  { label: "Kids", href: "/kids" },
+];
 
 export async function SiteHeader() {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -25,13 +30,22 @@ export async function SiteHeader() {
 
         <nav className="hidden flex-1 items-center justify-center gap-7 md:flex">
           {navLinks.map((link) => (
-            <span
-              key={link}
-              className="cursor-default text-sm font-medium text-neutral-700 transition-colors hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white"
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm font-medium text-neutral-700 transition-colors hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white"
             >
-              {link}
-            </span>
+              {link.label}
+            </Link>
           ))}
+          {session && (
+            <Link
+              href="/orders"
+              className="text-sm font-medium text-neutral-700 transition-colors hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-white"
+            >
+              Orders
+            </Link>
+          )}
         </nav>
 
         <div className="ml-auto flex items-center gap-2 md:ml-0">

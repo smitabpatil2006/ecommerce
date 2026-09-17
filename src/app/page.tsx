@@ -1,16 +1,20 @@
-import { asc } from "drizzle-orm";
+import Image from "next/image";
+import Link from "next/link";
+import { asc, desc } from "drizzle-orm";
 
-import { ProductCard } from "@/components/product-card";
+import { AUDIENCE_META } from "@/components/audience-catalog";
+import { ProductGrid } from "@/components/product-grid";
 import { db } from "@/db";
-import { products } from "@/db/schema";
+import { AUDIENCES, products } from "@/db/schema";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const allProducts = await db
+  const featured = await db
     .select()
     .from(products)
-    .orderBy(asc(products.name));
+    .orderBy(desc(products.rating), asc(products.name))
+    .limit(8);
 
   return (
     <main className="flex-1">
@@ -25,33 +29,57 @@ export default async function Home() {
             purpose
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base text-neutral-300">
-            Icons, everyday essentials and performance gear — the full lineup,
-            ready to ship.
+            Icons, everyday essentials and performance gear — for men, women and
+            kids.
           </p>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 py-14">
-        <div className="mb-8 flex items-end justify-between">
-          <h2 className="text-2xl font-bold tracking-tight">
-            Featured products
-          </h2>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
-            {allProducts.length} items
-          </p>
+        <h2 className="mb-8 text-2xl font-bold tracking-tight">
+          Shop by collection
+        </h2>
+        <div className="grid gap-6 md:grid-cols-3">
+          {AUDIENCES.map((audience) => {
+            const meta = AUDIENCE_META[audience];
+            return (
+              <Link
+                key={audience}
+                href={`/${audience}`}
+                className="group relative isolate flex h-72 items-end overflow-hidden rounded-3xl bg-neutral-900"
+              >
+                <Image
+                  src={meta.image}
+                  alt={`${meta.label}'s collection`}
+                  fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  className="object-cover opacity-70 transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="relative w-full bg-gradient-to-t from-neutral-950/90 to-transparent p-6">
+                  <h3 className="text-2xl font-black uppercase tracking-tight text-white">
+                    {meta.label}
+                  </h3>
+                  <p className="mt-1 line-clamp-2 text-sm text-neutral-200">
+                    {meta.tagline}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
+      </section>
 
-        {allProducts.length === 0 ? (
-          <p className="text-neutral-500 dark:text-neutral-400">
-            No products yet. Run <code>npm run db:seed</code>.
-          </p>
-        ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {allProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        )}
+      <section className="mx-auto max-w-7xl px-6 pb-16">
+        <div className="mb-8 flex items-end justify-between">
+          <h2 className="text-2xl font-bold tracking-tight">Top rated</h2>
+          <Link
+            href="/men"
+            className="text-sm font-semibold underline-offset-4 hover:underline"
+          >
+            Shop all
+          </Link>
+        </div>
+        <ProductGrid products={featured} />
       </section>
     </main>
   );

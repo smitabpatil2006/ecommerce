@@ -1,19 +1,16 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
-
-import { selectItemCount, useCartStore } from "@/store/cart";
+import { useCartStore } from "@/store/cart";
+import { useCartCount } from "@/store/use-cart";
 
 export function CartButton() {
-  const count = useSyncExternalStore(
-    useCartStore.subscribe,
-    () => selectItemCount(useCartStore.getState()),
-    () => 0,
-  );
+  const count = useCartCount();
+  const setOpen = useCartStore((state) => state.setOpen);
 
   return (
     <button
       type="button"
+      onClick={() => setOpen(true)}
       aria-label={`Cart, ${count} item${count === 1 ? "" : "s"}`}
       className="group relative rounded-full p-2.5 transition-colors hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 dark:hover:bg-neutral-800 dark:focus-visible:outline-white"
     >

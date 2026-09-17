@@ -11,7 +11,13 @@ type Mode = "sign-in" | "sign-up";
 const inputClass =
   "w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-900 outline-none transition-colors placeholder:text-neutral-400 focus:border-neutral-900 focus:ring-2 focus:ring-neutral-900/10 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white dark:focus:border-white dark:focus:ring-white/10";
 
-export function AuthForm({ mode }: { mode: Mode }) {
+export function AuthForm({
+  mode,
+  next = "/",
+}: {
+  mode: Mode;
+  next?: string;
+}) {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -37,7 +43,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
       return;
     }
 
-    router.push("/");
+    router.push(next);
     router.refresh();
   }
 
@@ -104,7 +110,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
       <p className="text-center text-sm text-neutral-500 dark:text-neutral-400">
         {isSignUp ? "Already a member? " : "Not a member? "}
         <Link
-          href={isSignUp ? "/sign-in" : "/sign-up"}
+          href={`${isSignUp ? "/sign-in" : "/sign-up"}?next=${encodeURIComponent(next)}`}
           className="font-semibold text-neutral-900 underline underline-offset-4 hover:text-orange-600 dark:text-white dark:hover:text-orange-400"
         >
           {isSignUp ? "Sign in" : "Join us"}

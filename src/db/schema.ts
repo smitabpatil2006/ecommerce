@@ -8,12 +8,20 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 
+export const AUDIENCES = ["men", "women", "kids"] as const;
+export type Audience = (typeof AUDIENCES)[number];
+
+export const ORDER_STAGES = ["packing", "shipped", "delivered"] as const;
+export type OrderStage = (typeof ORDER_STAGES)[number];
+
 export const products = pgTable("products", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
   slug: text("slug").notNull().unique(),
   description: text("description").notNull(),
   category: text("category").notNull(),
+  audience: text("audience").$type<Audience>().notNull().default("men"),
+  sizes: text("sizes").array().notNull().default([]),
   color: text("color").notNull(),
   priceCents: integer("price_cents").notNull(),
   rating: numeric("rating", { precision: 2, scale: 1 }).notNull().default("0.0"),
@@ -74,5 +82,60 @@ export const verification = pgTable("verification", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+export const orders = pgTable("orders", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  fullName: text("full_name").notNull(),
+  address: text("address").notNull(),
+  city: text("city").notNull(),
+  postalCode: text("postal_code").notNull(),
+  phone: text("phone").notNull(),
+  paymentMethod: text("payment_method").$type<"upi" | "cod">().notNull(),
+  upiId: text("upi_id"),
+  totalCents: integer("total_cents").notNull(),
+  stage: text("stage").$type<OrderStage>().notNull().default("packing"),
+  estimatedDelivery: timestamp("estimated_delivery", { withTimezone: true })
+    .notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+export const orderItems = pgTable("order_items", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  orderId: uuid("order_id")
+    .notNull()
+    .references(() => orders.id, { onDelete: "cascade" }),
+  productId: uuid("product_id").references(() => products.id, {
+    onDelete: "set null",
+  }),
+  name: text("name").notNull(),
+  size: text("size"),
+  quantity: integer("quantity").notNull(),
+  priceCents: integer("price_cents").notNull(),
+  imageUrl: text("image_url"),
+});
+
+export const reviews = pgTable("reviews", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  productId: uuid("product_id")
+    .notNull()
+    .references(() => products.id, { onDelete: "cascade" }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  authorName: text("author_name").notNull(),
+  rating: integer("rating").notNull(),
+  comment: text("comment").notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
 export type Product = typeof products.$inferSelect;
 export type NewProduct = typeof products.$inferInsert;
+export type Order = typeof orders.$inferSelect;
+export type OrderItem = typeof orderItems.$inferSelect;
+export type Review = typeof reviews.$inferSelect;

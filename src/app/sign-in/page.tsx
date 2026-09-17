@@ -5,10 +5,16 @@ import { AuthCard } from "@/components/auth-card";
 import { AuthForm } from "@/components/auth-form";
 import { auth } from "@/lib/auth";
 
-export default async function SignInPage() {
+function safeNext(value: string | string[] | undefined) {
+  return typeof value === "string" && value.startsWith("/") ? value : "/";
+}
+
+export default async function SignInPage({ searchParams }: PageProps<"/sign-in">) {
   const session = await auth.api.getSession({ headers: await headers() });
+  const next = safeNext((await searchParams).next);
+
   if (session) {
-    redirect("/");
+    redirect(next);
   }
 
   return (
@@ -16,7 +22,7 @@ export default async function SignInPage() {
       title="Welcome back"
       subtitle="Sign in to shop faster and track your orders."
     >
-      <AuthForm mode="sign-in" />
+      <AuthForm mode="sign-in" next={next} />
     </AuthCard>
   );
 }
